@@ -12,7 +12,8 @@
 
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
-function returnFirstArgument() {
+function returnFirstArgument(arg1) {
+    return arg1;
 }
 
 /*
@@ -30,6 +31,11 @@ function returnFirstArgument() {
    sumWithDefaults(10) вернет 110
  */
 function sumWithDefaults(a, b) {
+    if (b == undefined) {
+        b = 100;
+    }
+
+    return a + b;
 }
 
 /*
@@ -41,6 +47,9 @@ function sumWithDefaults(a, b) {
    returnFnResult(() => 'привет') вернет 'привет'
  */
 function returnFnResult(fn) {
+    var returnFirstResult = fn();
+
+    return returnFirstResult;
 }
 
 /*
@@ -57,6 +66,15 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 13
  */
 function returnCounter(number) {
+    number++;
+
+    return function f() {
+        var prev = number;
+
+        number++;
+        
+        return prev;
+    };
 }
 
 /*
@@ -69,6 +87,13 @@ function returnCounter(number) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
+    var arr = [];
+
+    for (let i = 0; i < arguments.length; i++) {
+        arr.push(arguments[i]);
+    }
+
+    return arr;
 }
 
 /*
@@ -86,7 +111,11 @@ function returnArgumentsArray() {
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn) {
+
+// Использовано args, а не arguments, так как иначе ругается Parser
+
+function bindFunction(fn, ...args) {
+    return fn.bind(this, ...args);
 }
 
 export {
